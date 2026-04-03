@@ -1,0 +1,70 @@
+
+/*PAGE LAYOUT*/
+.container{
+    display: grid;
+    min-height:100vh;
+    height: auto;
+    grid-template-columns: 0.9fr 2.7fr 1fr;
+    grid-template-rows: auto auto auto 1fr 0.2fr 0.8fr ;
+    gap: 10px;
+    padding: 1vh 1vw;
+    background: #d4b1db;
+    grid-template-areas:
+        "imageBar imageBar imageBar"
+        "boxBar navBar ."
+        "roomBar main sideBarRight"
+        "studyBar main sideBarRight"
+        "studyBar main sideBarRight"
+        "studyBar main sideBarRight"
+}
+
+/*stickyness*/ 
+#navBar, #boxBar, #roomBar, #studyBar, #dialougeBar, #upNextBar {
+    align-self: start; 
+    position:sticky;
+}
+#imageBar{
+    background: #ff189f;
+    grid-area: imageBar;
+    height: 35vh
+}
+#navBar{
+    background: #18ffff;
+    grid-area: navBar;
+    height: 40px;
+    top: 10px;
+}
+#boxBar{
+    background: #224fff;
+    grid-area: boxBar;
+    height: 40px;
+    top: 30px;
+}
+#content{
+    background: #b9123c;
+    grid-area: main; 
+}
+#roomBar{
+    background: #b618ff;
+    grid-area: roomBar;
+    top: 80px;
+    height: 200px;
+}
+#studyBar{
+    background: #cd61e2;
+    grid-area: studyBar;
+    top: 290px;
+    height: 40px;
+}
+#dialougeBar{
+    background: #69ff18;
+    grid-area: sideBarRight;
+    height: 160px;
+    top: 30px;
+}
+#upNextBar{
+    background: #ff18f0;
+    grid-area: sideBarRight;
+    top: 200px;
+    height:200px;
+}
