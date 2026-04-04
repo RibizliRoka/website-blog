@@ -22,7 +22,21 @@
 #imageBar{
     background: #ff189f;
     grid-area: imageBar;
-    height: 35vh
+    height: 35vh;
+    position: relative; 
+    overflow: hidden; 
+    border-radius: 20px; 
+}
+#imageBar img {
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(270deg) scale(1.0);
+    object-fit: contain;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: 1000%;
 }
 
 /*STICKY BOXES*/ 
