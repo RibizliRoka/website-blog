@@ -1,0 +1,57 @@
+const urlParams = new URLSearchParams(window.location.search);
+let currentPage = parseInt(urlParams.get('page')) || 1;
+
+const comicStage = document.getElementById("comic-stage");
+const nextBtn = document.getElementById("next-btn");
+const prevBtn = document.getElementById("prev-btn");
+
+async function loadPage(pageNumber) {
+  try {
+    // Fetches ONLY the raw HTML fragment for this page
+    const response = await fetch(`pages/${pageNumber}.html`);
+    
+    if (!response.ok) {
+      if (response.status === 404) {
+        comicStage.innerHTML = "<div class='notice'>End of the line! New page coming soon.</div>";
+        return;
+      }
+      throw new Error("Network issue");
+    }
+
+    // Convert to raw text and dump it straight into the stage
+    const htmlFragment = await response.text();
+    comicStage.innerHTML = htmlFragment;
+
+    // Update the URL bar silently so users can copy/bookmark the link
+    const newUrl = `${window.location.origin}${window.location.pathname}?page=${pageNumber}`;
+    window.history.pushState({ page: pageNumber }, "", newUrl);
+
+  } catch (error) {
+    console.error("Error:", error);
+    comicStage.innerHTML = "<div class='notice'>Failed to load page. Check connection.</div>";
+  }
+}
+
+// Button Events
+nextBtn.addEventListener("click", () => {
+  currentPage++;
+  loadPage(currentPage);
+});
+
+prevBtn.addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    loadPage(currentPage);
+  }
+});
+
+// Sync browser back/forward buttons
+window.addEventListener('popstate', (e) => {
+  if (e.state && e.state.page) {
+    currentPage = e.state.page;
+    loadPage(currentPage);
+  }
+});
+
+// Load initial page on startup
+loadPage(currentPage);
