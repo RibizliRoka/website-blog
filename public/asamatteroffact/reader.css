@@ -1,5 +1,12 @@
 
 /*PAGE LAYOUT*/
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
 .container{
     display: grid;
     min-height:100vh;
@@ -8,7 +15,7 @@
     grid-template-rows: auto auto auto 0.1fr 1fr 0.2fr 0.8fr ;
     gap: 10px;
     padding: 1vh 1vw;
-    background: #d4b1db;
+    background: #f4d3e9;
     grid-template-areas:
         "imageBar imageBar imageBar"
         "boxBar navBar ."
@@ -83,6 +90,63 @@
     height:200px;
 }
 
+/*CHAPTER HEADER*/
+.chapterHeader {
+    margin-inline: 12px;
+    display: grid;
+    grid-template-columns: 85px 15px 0.5fr 0.2fr 0.5fr;
+    grid-template-rows: 20px 80px 5px 50px 10px;
+    grid-template-areas: 
+        "chapterSquareGrid . . . ."
+        "chapterSquareGrid . chapterTitleGrid chapterNameGrid chapterNameGrid"
+        "chapterSquareGrid . . . ."
+        "chapterSquareGrid . partNameGrid partNameGrid classifierGrid"
+        ". . partNameGrid partNameGrid classifierGrid";
+}
+#chapterSquareGrid{
+    background-color: #f44646;
+    grid-area: chapterSquareGrid;
+    border-bottom-left-radius: 0.8em;
+    border-bottom-right-radius: 0.8em;
+    text-align: center;
+    font-size: 40px;
+}
+#chapterTitleGrid{
+    background-color: #f4ba46;
+    grid-area: chapterTitleGrid;
+    font-size: 30px;
+}
+#chapterNameGrid{
+    background-color: #cbf446;
+    grid-area: chapterNameGrid;
+    font-size: 15px;
+}
+#partNameGrid{
+    background-color: #46f497;
+    grid-area: partNameGrid;
+}
+#classifierGrid{
+    background-color: #46f4f1;
+    grid-area: classifierGrid;
+}
+
+/*CONTENT AREA*/
+#section {
+    background-color: #f1f1f1;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 0.8em;
+}
+#content{
+    background: rgba(255, 255, 255, 0.4);
+    grid-area: main; 
+    border-radius: 20px; 
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
 /*LEFT SIDEBAR*/
 #boxBar, #roomBar, #studyBar{
     width: 250px;
@@ -103,9 +167,6 @@
   padding: 20px;
   font-size: 30px;
 }
-
-/*SPECIALLLL*/
-
 
 /*ROOM*/
 #roomBar {
@@ -160,53 +221,6 @@ details {
     margin-inline: 10px;
     color: var(--bg-color);
     font-size: 14px;
-}
-#equationType{
-}
-.eqBox{
-    background-color: var(--post-bg);
-    border-radius: 9px;
-    width: 230px;
-    height: 34px;
-    margin: 10px;
-}
-.equationTypes {
-    text-align: center;
-    list-style-type: "";
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    padding:2px;
-}
-.equationTypes li{
-    width: 50px;
-    height: 28px;
-    border-radius: 6px;
-    border-color: var(--dark-color);
-    border-width: 3px;
-    margin: 1.5px;
-}
-
-/*CONTENT*/
-#content{
-    background: rgba(255, 255, 255, 0.4);
-    grid-area: main; 
-    padding: 20px;
-    border-radius: 20px; 
-
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    align-items: stretch;
-}
-
-.page{
-    background: #b9123c;
-    border: 1px dotted #000;
-    padding: 20px;
-    border-radius: 20px; 
-    display: grid;
 }
 
 /*TEXT FORMATTING*/
