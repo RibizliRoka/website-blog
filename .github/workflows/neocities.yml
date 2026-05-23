@@ -27,7 +27,7 @@ jobs:
     - name: eleventy build site
       run: |
         npm ci
-        npx @11ty/elevent
+        npx @11ty/eleventy
  
     # When the dist_dir is ready, deploy it to neocities
     # Here we deploy the folder named `public`
