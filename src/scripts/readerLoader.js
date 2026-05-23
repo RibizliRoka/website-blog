@@ -30,7 +30,7 @@ const prevBtn = document.getElementById("prevButton");
 //PAGE LOADER
 async function loadPage(pageNumber) {
   try {
-    const response = await fetch(`rooms/${room.toLowerCase()}/${topic}/content/pg${pageNumber}.html`);
+    const response = await fetch(`../parts/markdown/${room.toLowerCase()}/${topic}/content/pg${pageNumber}.md`);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }

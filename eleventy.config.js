@@ -1,8 +1,8 @@
 module.exports = function(eleventyCc) {
   eleventyCc.addPassthroughCopy("src/css");
   eleventyCc.addPassthroughCopy("src/scripts");
-  eleventyCc.addPassthroughCopy("markdown");
-  eleventyCc.addPassthroughCopy("components");
+  eleventyCc.addPassthroughCopy("./parts/markdown");
+  eleventyCc.addPassthroughCopy("./parts/components");
 
   return {
     dir: {
