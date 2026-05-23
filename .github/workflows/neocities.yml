@@ -17,6 +17,17 @@ jobs:
     steps:
     # The checkout step copies your repo into the action runner. Important!
     - uses: actions/checkout@v4
+
+    - name: node.js setup stuff
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: eleventy build site
+      run: |
+        npm ci
+        npx @11ty/elevent
  
     # When the dist_dir is ready, deploy it to neocities
     # Here we deploy the folder named `public`
@@ -27,4 +38,4 @@ jobs:
         cleanup: true
         neocities_supporter: false # set this to true if you have a supporter account and want to bypass unsuported files filter.
         preview_before_deploy: true # print a deployment plan prior to waiting for files to upload.
-        dist_dir: public
+        dist_dir: _site

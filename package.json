@@ -1,0 +1,23 @@
+{
+  "name": "whatsupwithheartthedog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RibizliRoka/whatsupwithheartthedog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RibizliRoka/whatsupwithheartthedog/issues"
+  },
+  "homepage": "https://github.com/RibizliRoka/whatsupwithheartthedog#readme",
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.5"
+  }
+}
