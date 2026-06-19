@@ -27,6 +27,10 @@ const readerDoc = document.getElementById("section");
 const nextBtn = document.getElementById("nextButton");
 const prevBtn = document.getElementById("prevButton");
 
+//COMPONENTS
+const equationBox = document.getElementsByClassName("eqBox"); 
+const eqBoxArray = Array.from(equationBox);
+
 //PAGE LOADER
 async function loadPage(pageNumber) {
   try {
@@ -44,6 +48,25 @@ async function loadPage(pageNumber) {
   }
 }
 
+//EQ TYPE LOADER
+async function loadEquationTyper() {
+  try {
+    const response = await fetch(`../parts/components/eqTyper.html`);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const htmlChunk = await response.text();
+    eqBoxArray.forEach(element => {
+        element.innerHTML = htmlChunk;
+    });
+
+  } catch (error) {
+    console.error(error.message);
+    equationBox[0].innerHTML = "<div class='notice'>something is definitely not right</div>"
+  }
+}
+
 //RELOAD EVENTS
 /*nextBtn.addEventListener("click", () => {
   pgNum++;
@@ -58,3 +81,4 @@ prevBtn.addEventListener("click", () => {
 
 //ON-LOAD
 loadPage(pgNum);
+loadEquationTyper();

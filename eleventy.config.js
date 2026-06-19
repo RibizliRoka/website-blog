@@ -7,6 +7,7 @@ module.exports = function(eleventyCc) {
   return {
     dir: {
       input: "src",
+      includes: "./_includes",
       output: "_site"
     }
   };
