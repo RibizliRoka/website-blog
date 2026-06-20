@@ -6,6 +6,9 @@
 body, h1, h2, h3, h4, h5, h6 {
   font-family: myBasicHeart;
 }
+h2{
+    color: var(--dark-pink);
+}
 
 /*PAGE LAYOUT*/
 html, body {
@@ -23,7 +26,7 @@ html, body {
     grid-template-rows: auto auto auto 0.1fr 1fr 0.2fr 0.8fr ;
     gap: 10px;
     padding: 1vh 1vw;
-    background: #f4d3e9;
+    background: var(--light-pink);
     grid-template-areas:
         "imageBar imageBar imageBar"
         "boxBar navBar ."
@@ -36,7 +39,7 @@ html, body {
 
 /*HEADER */
 #imageBar{
-    background: #ff189f;
+    background: var(--sky-blue);
     grid-area: imageBar;
     height: 300px;
     position: relative; 
@@ -61,38 +64,38 @@ html, body {
     position: sticky;
 }
 #navBar{
-    background: #fde7fe;
+    background: var(--bubble-pink);
     grid-area: navBar;
     height: 40px;
     top: 10px;
     border-radius: 15px;
 }
 #boxBar{
-    background: #224fff;
+    background: var(--dino-blue);
     grid-area: boxBar;
     height: 40px;
     top: 30px;
 }
 #roomBar{
-    background: #b618ff;
+    background: var(--dino-blue);
     grid-area: roomBar;
     top: 80px;
     height: 400px;
 }
 #studyBar{
-    background: #cd61e2;
+    background: var(--dino-blue);
     grid-area: studyBar;
     top: 506px;
     height: 40px;
 }
 #dialougeBar{
-    background: #69ff18;
+    background: var(--dino-blue);
     grid-area: dialougeBar;
     height: 160px;
     top: 30px;
 }
 #upNextBar{
-    background: #ff18f0;
+    background: var(--dino-blue);
     grid-area: upNextBar;
     top: 200px;
     height:200px;
@@ -112,7 +115,7 @@ html, body {
         ". . partNameGrid partNameGrid classifierGrid";
 }
 #chapterSquareGrid{
-    background-color: #f44646;
+    background-color: var(--pure-white);
     grid-area: chapterSquareGrid;
     border-bottom-left-radius: 0.8em;
     border-bottom-right-radius: 0.8em;
@@ -120,27 +123,23 @@ html, body {
     font-size: 40px;
 }
 #chapterTitleGrid{
-    background-color: #f4ba46;
     grid-area: chapterTitleGrid;
     font-size: 30px;
 }
 #chapterNameGrid{
-    background-color: #cbf446;
     grid-area: chapterNameGrid;
     font-size: 15px;
 }
 #partNameGrid{
-    background-color: #46f497;
     grid-area: partNameGrid;
 }
 #classifierGrid{
-    background-color: #46f4f1;
     grid-area: classifierGrid;
 }
 
 /*CONTENT AREA*/
 #section {
-    background-color: #f1f1f1;
+    background-color: var(--pure-white);
     padding: 20px;
     margin: 20px;
     border-radius: 0.8em;
@@ -178,7 +177,7 @@ html, body {
 
 /*ROOM*/
 #roomBar {
-    background-color: var(--dark-color);
+    background-color: var(--dark-gray);
     box-shadow: 2px 2px 6px #2d2c2c;
     border-radius: 0.8em;
     padding: 0.5em 0px;
@@ -202,7 +201,7 @@ details {
 }
 #roomDesc{
     font-size: 15px;
-    color: var(--bg-color)
+    color: var(--white-text)
 }
 #timeArea{
     height: 50px;
@@ -227,7 +226,7 @@ details {
 }
 #infobox{
     margin-inline: 10px;
-    color: var(--bg-color);
+    color: var(--white-text);
     font-size: 14px;
 }
 
@@ -238,20 +237,8 @@ details {
 }
 
 :root {
-    --link-color: #69DBFF;
-    --main-link-color: #005ad6;
-    --dark-link-color: #384775;
-    --visited-link-color: #62687d;
-    --text-color: white;
-    --highlight: #fff4e0;
-    --post-bg: #e4e4ec;
-    --bg-color: #D0D0DB;
-    --border-color: #8E8D98;
-    --border-shadow: #8E8D9880;
-    --text-bg: #6A6873;
-    --main-color: #4D4B57;
-    --dark-color: #373540;
-    --shadow-color: #6A687380;
+    --white-text: #D0D0DB;
+    --dark-gray: #373540;
     --extra1: #FF9EAB;
     --extra2: #ffbc93;
     --extra3: #FFE69E;
@@ -259,4 +246,22 @@ details {
     --extra5: #9EE6FF;
     --extra6: #bdb7ff;
     --extra7: #ffbef0;
+
+    /*BASE*/
+    --pure-white: #f9f2f5;
+
+    /*MATH THEME*/
+    --dark-pink: #eb64b8;
+    --light-pink: #f9d5e1;
+    --bubble-pink: #f8e5f2;
+    --ray-green: #a4cfb5;
+    --chalk-green: #e4ebc0;
+    --black-purple: #5a3e79;
+    --dark-purple:#816add;
+    --light-purple: #e5cff2;
+    --dark-dino: #6a77be;
+    --dino-blue: #98acf7;
+    --sky-blue: #98c9f9;
+    --pleasant-yellow: #f3e4c0;
+    --bright-cyan: #aff3e7;
 }
