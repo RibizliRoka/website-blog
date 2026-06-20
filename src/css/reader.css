@@ -10,15 +10,42 @@
 body, h1, h3, h4, h5, h6 {
   font-family: myBasicHeart;
 }
+
+/*GRADIENT KAWAII FUN TEXT BUBBLES*/
 .gradientKawaiiText{
-    background: linear-gradient(to top, var(--dark-pink), var(--bubble-pink));    
-    background-clip: text;
-    color:transparent;
-    size: 60px;
+    display: flex;
+    font-size: 80px;
     font-family: myBubblyHeart;
+    text-shadow: none; 
+    -webkit-text-stroke: 0.02em var(--pure-white);
+    white-space: nowrap;
+    position: relative;
+    isolation: isolate; 
 }
-#chapterTitleGrid{
-    /*text-shadow: -2px -2px 0 var(--pure-white), 2px -2px 0 var(--pure-white), -2px  2px 0 var(--pure-white), 2px  2px 0 var(--pure-white);*/
+h2.gradientKawaiiText span:not(.space,.highlightOnKawaii)::after {
+  content: attr(data-text);  
+  background: radial-gradient(at bottom center, var(--dark-pink), var(--dark-pink), var(--light-pink));  
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  display: inline-block;
+}
+.highlightOnKawaii{
+  position: absolute;
+  top: 15%;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.1)
+  );
+  mix-blend-mode: source-atop;
+  z-index: 2;
+  pointer-events: none;
 }
 
 /*PAGE LAYOUT*/
