@@ -3,11 +3,22 @@
   font-family: myBasicHeart; 
   src: url('/parts/secrets/fonts/myBasicHeart.ttf') format('truetype');
 }
-body, h1, h2, h3, h4, h5, h6 {
+@font-face {
+  font-family: myBubblyHeart; 
+  src: url('/parts/secrets/fonts/bubblegum/Bubblegum.ttf') format('truetype');
+}
+body, h1, h3, h4, h5, h6 {
   font-family: myBasicHeart;
 }
-h2{
-    color: var(--dark-pink);
+.gradientKawaiiText{
+    background: linear-gradient(to top, var(--dark-pink), var(--bubble-pink));    
+    background-clip: text;
+    color:transparent;
+    size: 60px;
+    font-family: myBubblyHeart;
+}
+#chapterTitleGrid{
+    /*text-shadow: -2px -2px 0 var(--pure-white), 2px -2px 0 var(--pure-white), -2px  2px 0 var(--pure-white), 2px  2px 0 var(--pure-white);*/
 }
 
 /*PAGE LAYOUT*/
