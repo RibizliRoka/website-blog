@@ -11,7 +11,7 @@ body, h1, h3, h4, h5, h6 {
   font-family: myBasicHeart;
 }
 
-/*GRADIENT KAWAII FUN TEXT BUBBLES*/
+/*MY AERO HEART*/
 #myAeroHeart{
     position: relative;
     display: inline-block;
@@ -22,17 +22,18 @@ body, h1, h3, h4, h5, h6 {
 }
 .gradientKawaiiText > span:not(.space){
     position: relative;
-    display: inline-flex;
+    display: inline-block;
     font-family: myBubblyHeart;
     font-size: 80px;
     /*-webkit-text-stroke: 0.02em var(--pure-white);*/
+}
+.gradientKawaiiText > span:not(.space)::before{
+    content: attr(data-text);
+    position: absolute;
     text-shadow: 
-        /* Inner Black Ring (1px thickness) */
-        -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000,  1px  1px 0 #000,
-        
-        /* Outer Pink Ring (3px thickness) */
-        -3px -3px 0 #ff007f,  3px -3px 0 #ff007f, -3px  3px 0 #ff007f,  3px  3px 0 #ff007f,
-        -3px  0px 0 #ff007f,  3px  0px 0 #ff007f,  0px -3px 0 #ff007f,  0px  3px 0 #ff007f;
+        -3px -3px 0 var(--pure-white),  3px -3px 0 var(--pure-white), -3px  3px 0 var(--pure-white),  3px  3px 0 var(--pure-white),
+        -5px -5px 0 var(--dark-pink),  5px -5px 0 var(--dark-pink), -5px  5px 0 var(--dark-pink),  5px  5px 0 var(--dark-pink),
+        -5px  5px 0 var(--dark-pink),  5px  5px 0 var(--dark-pink),  5px 5px 0 var(--dark-pink),  5px  5px 0 var(--dark-pink);
 }
 .gradientKawaiiText .space {
     position: relative;
