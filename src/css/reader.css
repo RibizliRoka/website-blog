@@ -12,7 +12,12 @@ body, h1, h3, h4, h5, h6 {
 }
 
 /*FONT: MY AERO HEART*/
-#myAeroHeart{
+#chapter4AeroHeart{
+    position: relative;
+    top: 25px;
+    left: 10px;
+}
+.fontDecorMyAeroHeart{
     position: relative;
     display: inline-block;
 }
@@ -20,12 +25,11 @@ body, h1, h3, h4, h5, h6 {
     display: flex;
     flex-direction: row;
 }
-.gradientKawaiiText > span:not(.space){
+.gradientKawaiiText > span{
     position: relative;
     display: inline-block;
     font-family: myBubblyHeart;
     font-size: 80px;
-    /*-webkit-text-stroke: 0.02em var(--pure-white);*/
 }
 .gradientKawaiiText > span:not(.space)::before{
     content: attr(data-text);
@@ -35,11 +39,10 @@ body, h1, h3, h4, h5, h6 {
         -5px -5px 0 var(--dark-pink),  5px -5px 0 var(--dark-pink), -5px  5px 0 var(--dark-pink),  5px  5px 0 var(--dark-pink),
         -5px  5px 0 var(--dark-pink),  5px  5px 0 var(--dark-pink),  5px 5px 0 var(--dark-pink),  5px  5px 0 var(--dark-pink);
 }
-.gradientKawaiiText .space {
-    position: relative;
-    display: inline-block;
-    content: " ";
-    width: 30px;
+.space{
+    position: absolute;
+    width: 20px;
+    flex-shrink: 0;
 }
 .gradientKawaiiText span:not(.space)::after {
     position: relative;
