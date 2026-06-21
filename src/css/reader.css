@@ -11,7 +11,7 @@ body, h1, h3, h4, h5, h6 {
   font-family: myBasicHeart;
 }
 
-/*MY AERO HEART*/
+/*FONT: MY AERO HEART*/
 #myAeroHeart{
     position: relative;
     display: inline-block;
@@ -38,6 +38,7 @@ body, h1, h3, h4, h5, h6 {
 .gradientKawaiiText .space {
     position: relative;
     display: inline-block;
+    content: " ";
     width: 30px;
 }
 .gradientKawaiiText span:not(.space)::after {
@@ -57,10 +58,11 @@ body, h1, h3, h4, h5, h6 {
     width: 100%;
     height: 100%;
     z-index: 2;
+    opacity: 60%;
     mix-blend-mode: color-dodge;
     background: 
-        linear-gradient(to bottom, var(--bright-cyan), rgba(255, 255, 255, 0.1)) no-repeat 0px 0px / 100% 26%,
-        linear-gradient(to bottom, var(--dark-purple), rgba(255, 255, 255, 0.1)) no-repeat 0px 45px / 100% 20%;
+        linear-gradient(to bottom, var(--dark-dino), rgba(255, 255, 255, 0.1)) no-repeat 0px 0px / 100% 50%,
+        linear-gradient(to bottom, var(--dark-dino), rgba(255, 255, 255, 0.1)) no-repeat 0px 45px / 100% 20%;
 }
 [data-text="C"] .highlight {
     transform: rotate(-20deg);
@@ -68,11 +70,32 @@ body, h1, h3, h4, h5, h6 {
         radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 18px 12px / 20px 10px,
         radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 17px 50px / 17px 12px;
 }
-[data-text="H"] .highlight {
+[data-text="A"] .highlight,
+[data-text="P"] .highlight,
+[data-text="R"] .highlight,
+[data-text="4"] .highlight
+{
+    transform: rotate(96deg);
+    mask: 
+        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 0px 51px / 20px 10px;
+}
+[data-text="H"] .highlight
+{
     transform: rotate(90deg);
     mask: 
-        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 20px 20px / 20px 10px,
-        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 0px 51px / 20px 10px;
+        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 0px 51px / 20px 10px,
+        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 35px 28px / 10px 10px;
+}
+[data-text="T"] .highlight {
+    mask: 
+        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 6px 10px / 20px 10px,
+        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 15px 51px / 10px 10px;
+}
+[data-text="E"] .highlight {
+    transform: rotate(90deg);
+    mask: 
+        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 30px 30px / 10px 10px,
+        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 0px 47px / 20px 10px;
 }
 
 /*PAGE LAYOUT*/
