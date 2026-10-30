@@ -1,0 +1,31 @@
+:root {
+    --white-text: #D0D0DB;
+    --dark-gray: #373540;
+    --extra1: #FF9EAB;
+    --extra2: #ffbc93;
+    --extra3: #FFE69E;
+    --extra4: #b2ffac;
+    --extra5: #9EE6FF;
+    --extra6: #bdb7ff;
+    --extra7: #ffbef0;
+
+    /*BASE*/
+    --pure-white: #f9f2f5;
+
+    /*MATH THEME*/
+    --dark-pink: #eb64b8;
+    --mid-pink: #ea90da;
+    --light-pink: #f9d5e1;
+    --bubble-pink: #f8e5f2;
+    --ray-green: #a4cfb5;
+    --chalk-green: #e4ebc0;
+    --black-purple: #5a3e79;
+    --dark-purple:#816add;
+    --mildly-dark-purple:#d7a3ee;
+    --light-purple: #e5cff2;
+    --dark-dino: #6a77be;
+    --dino-blue: #98acf7;
+    --sky-blue: #98c9f9;
+    --pleasant-yellow: #f3e4c0;
+    --bright-cyan: #aff3e7;
+}

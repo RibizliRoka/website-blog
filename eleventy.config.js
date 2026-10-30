@@ -1,7 +1,8 @@
 module.exports = function(eleventyCc) {
   eleventyCc.addPassthroughCopy("src/css");
   eleventyCc.addPassthroughCopy("src/scripts");
-  eleventyCc.addPassthroughCopy("./parts/markdown");
+  eleventyCc.addPassthroughCopy("./parts/contents");
+  eleventyCc.addPassthroughCopy("./parts/secrets");
   eleventyCc.addPassthroughCopy("./parts/components");
 
   return {
@@ -12,3 +13,5 @@ module.exports = function(eleventyCc) {
     }
   };
 };
+
+

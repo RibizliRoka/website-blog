@@ -1,0 +1,86 @@
+/*CHAPTER HEADER*/
+#internalHead{
+    position:relative;
+    background-color: var(--light-purple);
+    background: linear-gradient(to bottom, var(--light-purple), var(--mildly-dark-purple), var(--light-purple));  
+    margin: 12px;
+    border-radius: 12px;
+    border-width: 4px;
+    border-color: var(--mildly-dark-purple);
+    border-style: solid;
+}
+.chapterHeader {
+    position:relative;
+    margin-inline: 12px;
+    display: grid;
+    grid-template-columns: 85px 15px 420px 200px 1fr;
+    grid-template-rows: 20px 80px 5px 50px 10px;
+    grid-template-areas: 
+        "chapterSquareGrid . . . ."
+        "chapterSquareGrid . chapterTitleGrid chapterNameGrid chapterNameGrid"
+        "chapterSquareGrid . . . ."
+        "chapterSquareGrid . partNameGrid partNameGrid classifierGrid"
+        ". . partNameGrid partNameGrid classifierGrid";
+}
+
+/*TAB*/
+#chapterSquareGrid{
+    background-color: var(--bubble-pink);
+    grid-area: chapterSquareGrid;
+    border-bottom-left-radius: 0.8em;
+    border-bottom-right-radius: 0.8em;
+    border-color: var(--dark-purple);
+    border-style: solid;
+    box-shadow: 1px 2px 6px var(--black-purple);
+}
+#chapterNum{
+    position: relative;
+    text-align: center;
+    top:-45px;
+    font-size: 50px;
+    color: var(--black-purple)
+}
+
+#chapterBubbleTitle{
+    grid-area: chapterTitleGrid;
+    font-size: 15px;
+}
+
+/*CHAPTER NAME */
+.chapterNameGrid{
+    grid-area: chapterNameGrid;
+    list-style-type: "";
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+}
+.chapterNameGrid li{
+    width: 100%;
+    height: 100%;
+}
+#chapterName{
+    font-size: 18px;
+    width: 250px;
+    color: var(--black-purple);
+    flex: 0 1 auto;
+}
+
+/*PART NAME*/
+#partNameGrid{
+    grid-area: partNameGrid;
+}
+#partName{
+    position: relative;
+    font-size: 18px;
+    top: -14px;
+    left: 13px;
+    color: var(--black-purple)
+}
+
+#classifierGrid{
+    grid-area: classifierGrid;
+}
+#classifier{
+    position:relative;
+    box-shadow: 2px 2px 6px #2d2c2c;
+}

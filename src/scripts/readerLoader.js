@@ -34,7 +34,7 @@ const eqBoxArray = Array.from(equationBox);
 //PAGE LOADER
 async function loadPage(pageNumber) {
   try {
-    const response = await fetch(`../parts/markdown/${room.toLowerCase()}/${topic}/content/pg${pageNumber}.md`);
+    const response = await fetch(`../../../parts/contents/${room.toLowerCase()}/${topic}/markdown/pg${pageNumber}.md`);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
@@ -51,7 +51,7 @@ async function loadPage(pageNumber) {
 //EQ TYPE LOADER
 async function loadEquationTyper() {
   try {
-    const response = await fetch(`../parts/components/eqTyper.html`);
+    const response = await fetch(`../../../parts/components/eqTyper.html`);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }

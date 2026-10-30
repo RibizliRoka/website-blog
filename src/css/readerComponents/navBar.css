@@ -1,0 +1,16 @@
+#navBar{
+    background: linear-gradient(to bottom, var(--dark-pink),var(--mid-pink));  
+    border-style: solid;
+    border-color: var(--mid-pink);
+    z-index: 3;
+}
+
+#navBar div:nth-child(n) {
+    position: relative;
+    top:-24px;
+    background-color: transparent;
+}
+
+#navBar div:nth-child(-n+3) {
+    color: var(--bubble-pink);
+}

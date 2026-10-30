@@ -1,106 +1,3 @@
-/*FONTS*/
-@font-face {
-  font-family: myBasicHeart; 
-  src: url('/parts/secrets/fonts/myBasicHeart.ttf') format('truetype');
-}
-@font-face {
-  font-family: myBubblyHeart; 
-  src: url('/parts/secrets/fonts/bubblegum/Bubblegum.ttf') format('truetype');
-}
-body, h1, h3, h4, h5, h6 {
-  font-family: myBasicHeart;
-}
-
-/*FONT: MY AERO HEART*/
-#chapter4AeroHeart{
-    position: relative;
-    top: 25px;
-    left: 10px;
-}
-.fontDecorMyAeroHeart{
-    position: relative;
-    display: inline-block;
-}
-.gradientKawaiiText {
-    display: flex;
-    flex-direction: row;
-}
-.gradientKawaiiText > span{
-    position: relative;
-    display: inline-block;
-    font-family: myBubblyHeart;
-    font-size: 80px;
-}
-.gradientKawaiiText > span:not(.space)::before{
-    content: attr(data-text);
-    position: absolute;
-    text-shadow: 
-        -3px -3px 0 var(--pure-white),  3px -3px 0 var(--pure-white), -3px  3px 0 var(--pure-white),  3px  3px 0 var(--pure-white),
-        -5px -5px 0 var(--dark-pink),  5px -5px 0 var(--dark-pink), -5px  5px 0 var(--dark-pink),  5px  5px 0 var(--dark-pink),
-        -5px  5px 0 var(--dark-pink),  5px  5px 0 var(--dark-pink),  5px 5px 0 var(--dark-pink),  5px  5px 0 var(--dark-pink);
-}
-.space{
-    position: absolute;
-    width: 20px;
-    flex-shrink: 0;
-}
-.gradientKawaiiText span:not(.space)::after {
-    position: relative;
-    display: inline-block;
-    content: attr(data-text);  
-    background: linear-gradient(to bottom, var(--dark-pink), var(--dark-pink), var(--light-pink));  
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-}
-.highlight {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    opacity: 60%;
-    mix-blend-mode: color-dodge;
-    background: 
-        linear-gradient(to bottom, var(--dark-dino), rgba(255, 255, 255, 0.1)) no-repeat 0px 0px / 100% 50%,
-        linear-gradient(to bottom, var(--dark-dino), rgba(255, 255, 255, 0.1)) no-repeat 0px 45px / 100% 20%;
-}
-[data-text="C"] .highlight {
-    transform: rotate(-20deg);
-    mask: 
-        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 18px 12px / 20px 10px,
-        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 17px 50px / 17px 12px;
-}
-[data-text="A"] .highlight,
-[data-text="P"] .highlight,
-[data-text="R"] .highlight,
-[data-text="4"] .highlight
-{
-    transform: rotate(96deg);
-    mask: 
-        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 0px 51px / 20px 10px;
-}
-[data-text="H"] .highlight
-{
-    transform: rotate(90deg);
-    mask: 
-        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 0px 51px / 20px 10px,
-        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 35px 28px / 10px 10px;
-}
-[data-text="T"] .highlight {
-    mask: 
-        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 6px 10px / 20px 10px,
-        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 15px 51px / 10px 10px;
-}
-[data-text="E"] .highlight {
-    transform: rotate(90deg);
-    mask: 
-        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 30px 30px / 10px 10px,
-        radial-gradient(ellipse, black 70%, transparent 70%) no-repeat 0px 47px / 20px 10px;
-}
-
 /*PAGE LAYOUT*/
 html, body {
   margin: 0;
@@ -155,14 +52,12 @@ html, body {
     position: sticky;
 }
 #navBar{
-    background: var(--bubble-pink);
     grid-area: navBar;
     height: 40px;
     top: 10px;
     border-radius: 15px;
 }
 #boxBar{
-    background: var(--dino-blue);
     grid-area: boxBar;
     height: 40px;
     top: 30px;
@@ -172,12 +67,6 @@ html, body {
     grid-area: roomBar;
     top: 80px;
     height: 400px;
-}
-#studyBar{
-    background: var(--dino-blue);
-    grid-area: studyBar;
-    top: 506px;
-    height: 40px;
 }
 #dialougeBar{
     background: var(--dino-blue);
@@ -192,42 +81,6 @@ html, body {
     height:200px;
 }
 
-/*CHAPTER HEADER*/
-.chapterHeader {
-    margin-inline: 12px;
-    display: grid;
-    grid-template-columns: 85px 15px 0.5fr 0.2fr 0.5fr;
-    grid-template-rows: 20px 80px 5px 50px 10px;
-    grid-template-areas: 
-        "chapterSquareGrid . . . ."
-        "chapterSquareGrid . chapterTitleGrid chapterNameGrid chapterNameGrid"
-        "chapterSquareGrid . . . ."
-        "chapterSquareGrid . partNameGrid partNameGrid classifierGrid"
-        ". . partNameGrid partNameGrid classifierGrid";
-}
-#chapterSquareGrid{
-    background-color: var(--pure-white);
-    grid-area: chapterSquareGrid;
-    border-bottom-left-radius: 0.8em;
-    border-bottom-right-radius: 0.8em;
-    text-align: center;
-    font-size: 40px;
-}
-#chapterTitleGrid{
-    grid-area: chapterTitleGrid;
-    font-size: 30px;
-}
-#chapterNameGrid{
-    grid-area: chapterNameGrid;
-    font-size: 15px;
-}
-#partNameGrid{
-    grid-area: partNameGrid;
-}
-#classifierGrid{
-    grid-area: classifierGrid;
-}
-
 /*CONTENT AREA*/
 #section {
     background-color: var(--pure-white);
@@ -236,13 +89,18 @@ html, body {
     border-radius: 0.8em;
 }
 #content{
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--bubble-pink);
     grid-area: main; 
     border-radius: 20px; 
 
     display: flex;
     flex-direction: column;
     align-items: stretch;
+
+    border-width: 2px;
+    border-color: var(--dino-blue);
+    border-style: solid;
+    box-shadow: 1px 2px 8px var(--dino-blue);
 }
 
 /*LEFT SIDEBAR*/
@@ -267,92 +125,10 @@ html, body {
 }
 
 /*ROOM*/
-#roomBar {
-    background-color: var(--dark-gray);
-    box-shadow: 2px 2px 6px #2d2c2c;
-    border-radius: 0.8em;
-    padding: 0.5em 0px;
-}
-details {
-    display: block;
-}
-#roomMap{
-    height: 50px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-}
-#mapBox{
-    background-color: var(--extra7);
-    height: 100px;
-    width: 100px;
-    border-radius: 12px;
-    margin: 10px;
-}
-#roomDesc{
-    font-size: 15px;
-    color: var(--white-text)
-}
-#timeArea{
-    height: 50px;
-    text-align: center;
-    font-size: 50px;
-}
-.tools {
-    text-align: center;
-    list-style-type: "";
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    margin-inline:10px;
-    padding: 0px;
-}
-.tools li{
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    margin: 4px;
-}
-#infobox{
-    margin-inline: 10px;
-    color: var(--white-text);
-    font-size: 14px;
-}
+
 
 /*TEXT FORMATTING*/
 .grnHighlight {
     color: #61c647;
     font-weight: bold; 
-}
-
-:root {
-    --white-text: #D0D0DB;
-    --dark-gray: #373540;
-    --extra1: #FF9EAB;
-    --extra2: #ffbc93;
-    --extra3: #FFE69E;
-    --extra4: #b2ffac;
-    --extra5: #9EE6FF;
-    --extra6: #bdb7ff;
-    --extra7: #ffbef0;
-
-    /*BASE*/
-    --pure-white: #f9f2f5;
-
-    /*MATH THEME*/
-    --dark-pink: #eb64b8;
-    --light-pink: #f9d5e1;
-    --bubble-pink: #f8e5f2;
-    --ray-green: #a4cfb5;
-    --chalk-green: #e4ebc0;
-    --black-purple: #5a3e79;
-    --dark-purple:#816add;
-    --light-purple: #e5cff2;
-    --dark-dino: #6a77be;
-    --dino-blue: #98acf7;
-    --sky-blue: #98c9f9;
-    --pleasant-yellow: #f3e4c0;
-    --bright-cyan: #aff3e7;
 }
