@@ -1,48 +1,54 @@
 
 //START
+const State = {
+  URL: "",
+  RoomLayout: null, 
+  Subject: {},
+  room: "MATH",
+  topic: "diffyq",
+  chapter: 1,
+  page: 1,
+
+  //Cache
+  components: {
+    readerDoc: null,
+    eqBoxArray: [],
+    equationBox: null
+  }
+};
 async function main()
 {
-  //VARIABLES
-  const Room = getRooms();
-  let Subject = {};
-  let room = "LOBBY";
-  let topic = 'diffyq';
-  let chapter = "";
-  let page = "";
+  //Constants no matter Room
+  State.RoomLayout = getRoomLayout();
+  State.components.readerDoc = document.getElementById("section");
+  State.components.equationBox = document.getElementsByClassName("eqBox"); 
+  State.components.eqBoxArray = Array.from(State.components.equationBox);
 
-  //GET ROOM TOPIC CHAPTER PAGE ?topic=diffyq&chapter=4&page=450
-  [Subject, room, topic, chapter, page] = await refreshBasedOnURL(Room)
+  //SYNC WITH URL ?topic=diffyq&chapter=4&page=450
+  await refreshBasedOnURL();
 
-  //COMPONENTS 
-  let readerDoc = document.getElementById("section");
-  let equationBox = document.getElementsByClassName("eqBox"); 
-  let eqBoxArray = Array.from(equationBox);
+  //RETRIEVE DATA FROM ROOM
+  await getRoomData();
 
   //LOAD PAGE
-  loadPage(readerDoc, room, topic, chapter, page); 
-  loadEquationTyper(eqBoxArray, equationBox); 
+  await Promise.all([
+    loadPageContent(),
+    loadEquationTyper()
+  ]);
 
-  //AFTER INIT
-  pageFlip(url, page);
-  [Subject, room, topic, chapter, page] = await loadAll(readerDoc,eqBoxArray, equationBox, Room, Subject, room, topic, chapter, page); 
+  //EVENTS
+  pageFlip(); 
+
+  //UPDATES
+  updateNavBar();
+  updateChapterHeader();
+  window.history.pushState({}, '', State.URL.toString());
 }
 main();
 
-//ON-LOAD
-async function loadAll(readerDoc,eqBoxArray, equationBox,Room, Subject, room, topic, chapter, page)
-{
-  loadPage(readerDoc, room, topic, chapter, page);
-  loadEquationTyper(eqBoxArray, equationBox);
-
-  updateNavBar(chapter, page);
-  updateChapterHeader(Subject, chapter, page);
-  window.history.pushState({}, '', url.toString());
-  [Subject, room, topic, chapter, page] = await refreshBasedOnURL(Room)
-  return [Subject, room, topic, chapter, page];
-}
 
 // #region Init things
-function getRooms() {
+function getRoomLayout() {
   const Room = Object.freeze({
     MATH: new Set(["arithmetic", "algebra", "geometry", "topology", "stats","calculus", "multivari", "diffyq", "linalg"]),
     OBSERVATORY: new Set(["electronics", "mechanics", "quantum mechanics"]),
@@ -54,10 +60,10 @@ function getRooms() {
   });
   return Room;
 }
-async function getRoomData(room, topic)
+async function getRoomData()
 {
   try {
-    const response = await fetch(`../../../parts/contents/${room.toLowerCase()}/${topic}/titles.md`);
+    const response = await fetch(`../../../parts/contents/${State.room.toLowerCase()}/${State.topic}/titles.md`);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
@@ -90,91 +96,35 @@ async function getRoomData(room, topic)
     for (const key of chapters) {
       Subject[key] = parts;
     }
-    return Subject;
+
+    State.Subject = Subject;
   } catch (error) {
     console.error(error.message);
-    return [null, null, null, null];
   }
 }
 //#endregion
 
-// #region Load Page
-async function loadPage(readerDoc, room, topic, chapter, page) {
-  try {
-    console.log("hehe 1", room, topic,  Number(chapter), Number(page))
-    const response = await fetch(`../../../parts/contents/${room.toLowerCase()}/${topic}/markdown/ch${parseInt(chapter, 10)}pg${parseInt(page, 10)}.md`);
-    console.log("hehe 2")
-    if (!response.ok) {
-      console.log("bad 1")
-      throw new Error(`Response status: ${response.status}`);
-    }
-
-    const htmlChunk = await response.text();
-    readerDoc.innerHTML = htmlChunk;
-
-  } catch (error) {
-    console.error(error.message);
-    readerDoc.innerHTML = "<div class='notice'>something is definitely not right</div>"
-  }
-}
-
-//EQ TYPE LOADER
-async function loadEquationTyper(eqBoxArray, equationBox) {
-  try {
-    const response = await fetch(`../../../parts/components/eqTyper.html`);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-
-    const htmlChunk = await response.text();
-    eqBoxArray.forEach(element => {
-        element.innerHTML = htmlChunk;
-    });
-
-  } catch (error) {
-    console.error(error.message);
-    equationBox[0].innerHTML = "<div class='notice'>something is definitely not right</div>"
-  }
-}
-// #endregion
-
-// #region Button Clicks
-async function pageFlip(url, page){
-  document.getElementById("BackPage").onclick = function () {
-    if(page>1){
-      page = page-1;
-      url.searchParams.set('page', page);
-      loadAll();
-    }
-  };
-  document.getElementById("NextPage").onclick = function () {
-    if(page<50){
-      page = page+1;
-      url.searchParams.set('page', page);
-      loadAll();
-    }
-  };
-}
-
-async function refreshBasedOnURL(Room){
+async function refreshBasedOnURL(){
   url = new URL(window.location.href);
+  State.URL = url;
   if(window.location.search!=""){
-    console.log('PARAMS')
+    console.log('REFRESH based on URL')
     topic = parseInt(url.searchParams.get('topic')) || 'diffyq';
     chapter = parseInt(url.searchParams.get('chapter')) || 1;
     page = parseInt(url.searchParams.get('page')) || 1;
   }
   else{
-    console.log('DEFAULT')
+    console.log('REFRESH based on DEFAULT')
     chapter = 1;
     page = 1;
     url.searchParams.set('topic', topic);
     url.searchParams.set('chapter', 1);
     url.searchParams.set('page', 1);
   }
-  const match = Object.entries(Room).find(([key, set]) => set?.has(topic));
+  const match = Object.entries(State.RoomLayout).find(([key, set]) => set?.has(topic));
   room = match ? match[0] : "LOBBY";
 
+  console.log('REFRESH STATE')
   console.log('room', room)
   console.log('topic', topic)
   console.log('chapter number', chapter)
@@ -182,30 +132,88 @@ async function refreshBasedOnURL(Room){
 
   let Subject = await getRoomData(room, topic);
 
-  return [Subject, room, topic, chapter, page]
+  State.Subject = Subject;
+  State.room = room;
+  State.topic = topic;
+  State.chapter = chapter;
+  State.page = page;
+}
+
+// #region Load Page
+async function loadPageContent() {
+  try {
+    console.log("LOADING IN", State.room, State.topic,  Number(State.chapter), Number(State.page))
+    const response = await fetch(`../../../parts/contents/${State.room.toLowerCase()}/${State.topic}/markdown/ch${parseInt(State.chapter, 10)}pg${parseInt(State.page, 10)}.md`);
+    if (!response.ok) {
+      console.log("LOST CONTENT")
+      throw new Error(`Response status: ${response.status}`);
+    }
+    console.log("FOUND CONTENT")
+
+    const htmlChunk = await response.text();
+    State.components.readerDoc.innerHTML = htmlChunk;
+
+  } catch (error) {
+    console.error(error.message);
+    State.components.readerDoc.innerHTML = "<div class='notice'>something is definitely not right</div>"
+  }
+}
+async function loadEquationTyper() {
+  try {
+    const response = await fetch(`../../../parts/components/eqTyper.html`);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const htmlChunk = await response.text();
+    State.components.eqBoxArray.forEach(element => {
+        element.innerHTML = htmlChunk;
+    });
+
+  } catch (error) {
+    console.error(error.message);
+    State.components.equationBox[0].innerHTML = "<div class='notice'>something is definitely not right</div>"
+  }
+}
+// #endregion
+
+// #region Button Clicks
+async function pageFlip(){
+  document.getElementById("BackPage").onclick = function () {
+    if(page>1){
+      page = State.page-1;
+      State.URL.searchParams.set('page', page);
+    }
+  };
+  document.getElementById("NextPage").onclick = function () {
+    if(page<50){
+      page = State.page+1;
+      State.URL.searchParams.set('page', page); 
+    }
+  };
 }
 // #endregion
 
 // #region Text Updates
-async function updateNavBar(chapter, page) {
+async function updateNavBar() {
   const currChapter = document.getElementById("currChapter");
   if (currChapter) {
-    currChapter.textContent = chapter;
+    currChapter.textContent = State.chapter;
   }
   const pagePart = document.getElementById("pagePart");
   if (pagePart) {
-    pagePart.textContent = page;
+    pagePart.textContent = State.page;
   }
 }
-async function updateChapterHeader(Subject, chapter, page) {
-  const chName = Object.keys(Subject)[chapter-1]
+async function updateChapterHeader() {
+  const chName = Object.keys(State.Subject)[State.chapter-1]
   const chapterNum = document.getElementById("chBigNum");
   if (chapterNum) {
-    chapterNum.textContent = chapter;
+    chapterNum.textContent = State.chapter;
   }
   const chNumAero = document.getElementById("chNumAero");
   if (chNumAero) {
-    chNumAero.dataset.text = chapter;
+    chNumAero.dataset.text = State.chapter;
   }
   const chapterName = document.getElementById("chapterName");
   if (chapterName) {
@@ -213,7 +221,7 @@ async function updateChapterHeader(Subject, chapter, page) {
   }
   const partName = document.getElementById("partName");
   if (partName) {
-    partName.textContent = Subject[chName][page-1];
+    partName.textContent = State.Subject[chName][State.page-1];
   }
 }
 // #endregion
