@@ -9,11 +9,11 @@ layout: fullSite.html
 
     <!--NAVIGATION BAR-->
     <div id="navBar">
-        <div>CHAPTER 4: THE LAPLACE TRANSFORM</div>
-        <div>PART 1</div>
-        <div>20 %</div>
-        <div>BACK</div>
-        <div>NEXT</div>
+        <span id="currChapter">CHAPTER 4: THE LAPLACE TRANSFORM</span>
+        <span id="pagePart">PART 1</span>
+        <div id="pagePercent">20 %</div>
+        <button id="BackPage">BACK</button>
+        <button id="NextPage">NEXT</button>
     </div>
 
     <!--CONTENT-->
@@ -23,7 +23,7 @@ layout: fullSite.html
             <div class = "chapterHeader">
                 <div id="chapterSquareGrid">
                     <div id="chapterNum">
-                        <h1> 4</h1>
+                        <h1 id="chBigNum" style="position:relative; font-size: 100px; top:-45px;">2</h1>
                     </div>
                 </div>
 
@@ -39,7 +39,7 @@ layout: fullSite.html
                                 <span data-text="E"><span class="highlight"></span></span>
                                 <span data-text="R"><span class="highlight"></span></span>
                                 <span class="space"></span></span>
-                                <span data-text="4"><span class="highlight"></span></span>
+                                <span id="chNumAero" data-text="4"><span class="highlight"></span></span>
                             </h2>
                         </div>
                     </div>
