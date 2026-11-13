@@ -1,14 +1,7 @@
 
 //START
 const State = {
-  URL: "",
-  RoomLayout: null, 
-  Subject: {},
-  room: "MATH",
-  topic: "diffyq",
-  chapter: 1,
-  page: 1,
-
+  RoomLayout: null,
   //Cache
   components: {
     readerDoc: null,
@@ -16,25 +9,34 @@ const State = {
     equationBox: null
   }
 };
+window.localStorage.setItem("newLoad", "true");
+window.localStorage.setItem("URL", "");
+window.localStorage.setItem("Subject", "");
+window.localStorage.setItem("Room", "MATH");
+window.localStorage.setItem("Topic", "diffyq");
+window.localStorage.setItem("Chapter", "1");
+window.localStorage.setItem("Page", "1");
+
 async function main()
 {
   //Constants no matter Room
   State.RoomLayout = getRoomLayout();
   State.components.readerDoc = document.getElementById("section");
-  State.components.equationBox = document.getElementsByClassName("eqBox"); 
-  State.components.eqBoxArray = Array.from(State.components.equationBox);
+  //State.components.equationBox = document.getElementsByClassName("eqBox"); 
+  //State.components.eqBoxArray = Array.from(State.components.equationBox);
 
   //SYNC WITH URL ?topic=diffyq&chapter=4&page=450
-  await refreshBasedOnURL();
+  loadNew = window.localStorage.getItem("newLoad");
+  if(loadNew=="true"){
+    console.log("load new", loadNew)
+    await refreshBasedOnURL();
+  }
 
   //RETRIEVE DATA FROM ROOM
   await getRoomData();
 
   //LOAD PAGE
-  await Promise.all([
-    loadPageContent(),
-    loadEquationTyper()
-  ]);
+  loadPage()
 
   //EVENTS
   pageFlip(); 
@@ -42,7 +44,7 @@ async function main()
   //UPDATES
   updateNavBar();
   updateChapterHeader();
-  window.history.pushState({}, '', State.URL.toString());
+  window.history.pushState({}, '', window.localStorage.getItem("URL").toString());
 }
 main();
 
@@ -63,7 +65,7 @@ function getRoomLayout() {
 async function getRoomData()
 {
   try {
-    const response = await fetch(`../../../parts/contents/${State.room.toLowerCase()}/${State.topic}/titles.md`);
+    const response = await fetch(`../../../parts/contents/${window.localStorage.getItem("Room").toLowerCase()}/${window.localStorage.getItem("Topic")}/titles.md`);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
@@ -97,7 +99,7 @@ async function getRoomData()
       Subject[key] = parts;
     }
 
-    State.Subject = Subject;
+    window.localStorage.setItem("Subject", Subject);
   } catch (error) {
     console.error(error.message);
   }
@@ -106,7 +108,7 @@ async function getRoomData()
 
 async function refreshBasedOnURL(){
   url = new URL(window.location.href);
-  State.URL = url;
+  window.localStorage.setItem("URL", url);
   if(window.location.search!=""){
     console.log('REFRESH based on URL')
     topic = parseInt(url.searchParams.get('topic')) || 'diffyq';
@@ -132,18 +134,25 @@ async function refreshBasedOnURL(){
 
   let Subject = await getRoomData(room, topic);
 
-  State.Subject = Subject;
-  State.room = room;
-  State.topic = topic;
-  State.chapter = chapter;
-  State.page = page;
+  window.localStorage.setItem("Subject", Subject);
+  window.localStorage.setItem("Room", room);
+  window.localStorage.setItem("Topic", topic);
+  window.localStorage.setItem("Chapter", chapter);
+  window.localStorage.setItem("Page", page);
+
 }
 
 // #region Load Page
+async function loadPage(){
+    await Promise.all([
+    loadPageContent(),
+    //loadEquationTyper()
+  ]);
+}
 async function loadPageContent() {
   try {
-    console.log("LOADING IN", State.room, State.topic,  Number(State.chapter), Number(State.page))
-    const response = await fetch(`../../../parts/contents/${State.room.toLowerCase()}/${State.topic}/markdown/ch${parseInt(State.chapter, 10)}pg${parseInt(State.page, 10)}.md`);
+    console.log("LOADING IN", window.localStorage.getItem("Room"), window.localStorage.getItem("Topic"),  Number(window.localStorage.getItem("Chapter")), Number(window.localStorage.getItem("Page")))
+    const response = await fetch(`../../../parts/contents/${window.localStorage.getItem("Room").toLowerCase()}/${window.localStorage.getItem("Topic")}/markdown/ch${parseInt(window.localStorage.getItem("Chapter"), 10)}pg${parseInt(window.localStorage.getItem("Page"), 10)}.md`);
     if (!response.ok) {
       console.log("LOST CONTENT")
       throw new Error(`Response status: ${response.status}`);
@@ -152,9 +161,9 @@ async function loadPageContent() {
 
     const htmlChunk = await response.text();
     State.components.readerDoc.innerHTML = htmlChunk;
+    console.log("FOUND CONTENT")
 
   } catch (error) {
-    console.error(error.message);
     State.components.readerDoc.innerHTML = "<div class='notice'>something is definitely not right</div>"
   }
 }
@@ -171,7 +180,6 @@ async function loadEquationTyper() {
     });
 
   } catch (error) {
-    console.error(error.message);
     State.components.equationBox[0].innerHTML = "<div class='notice'>something is definitely not right</div>"
   }
 }
@@ -180,15 +188,31 @@ async function loadEquationTyper() {
 // #region Button Clicks
 async function pageFlip(){
   document.getElementById("BackPage").onclick = function () {
+    page = Number(window.localStorage.getItem("Page"));
     if(page>1){
-      page = State.page-1;
-      State.URL.searchParams.set('page', page);
+      page = page-1;
+      window.localStorage.setItem("Page", page);
+      loadPage();
+      const url = new URL(window.location.href);
+      url.searchParams.set('page', page); 
+      location.assign(url)
+      window.localStorage.setItem("newLoad", "false");
+      console.log("BACK FLIP page:", page);
     }
   };
   document.getElementById("NextPage").onclick = function () {
+    page = Number(window.localStorage.getItem("Page"));
     if(page<50){
-      page = State.page+1;
-      State.URL.searchParams.set('page', page); 
+      page = page+1;
+      window.localStorage.setItem("Page", page)
+      //loadPage();
+      const url = new URL(window.location.href);
+      //console.log("url: ", url)
+      url.searchParams.set('page', page);
+      location.assign(url)
+      //window.localStorage.setItem("newLoad", "false");
+      //console.log("url2: ", url) 
+      //console.log("FRONT FLIP page:", page)
     }
   };
 }
@@ -198,22 +222,22 @@ async function pageFlip(){
 async function updateNavBar() {
   const currChapter = document.getElementById("currChapter");
   if (currChapter) {
-    currChapter.textContent = State.chapter;
+    currChapter.textContent = window.localStorage.getItem("Chapter");
   }
   const pagePart = document.getElementById("pagePart");
   if (pagePart) {
-    pagePart.textContent = State.page;
+    pagePart.textContent = window.localStorage.getItem("Page");
   }
 }
 async function updateChapterHeader() {
-  const chName = Object.keys(State.Subject)[State.chapter-1]
+  const chName = Object.keys(window.localStorage.getItem("Subject"))[window.localStorage.getItem("Chapter")-1]
   const chapterNum = document.getElementById("chBigNum");
   if (chapterNum) {
-    chapterNum.textContent = State.chapter;
+    chapterNum.textContent = window.localStorage.getItem("Chapter");
   }
   const chNumAero = document.getElementById("chNumAero");
   if (chNumAero) {
-    chNumAero.dataset.text = State.chapter;
+    chNumAero.dataset.text = window.localStorage.getItem("Chapter");
   }
   const chapterName = document.getElementById("chapterName");
   if (chapterName) {
@@ -221,7 +245,7 @@ async function updateChapterHeader() {
   }
   const partName = document.getElementById("partName");
   if (partName) {
-    partName.textContent = State.Subject[chName][State.page-1];
+    partName.textContent = window.localStorage.getItem("Subject")[chName][window.localStorage.getItem("Page")-1];
   }
 }
 // #endregion
